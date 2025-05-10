@@ -124,6 +124,54 @@ ip route 192.168.2.0 255.255.255.0 10.10.20.2
 
 ---
 
+# Diagram 6
+## Router0
+```bash
+enable
+configure terminal
+
+interface fastethernet0/0
+ip address 193.0.0.129 255.255.255.192
+no shutdown
+exit
+
+interface fastethernet0/1
+ip address 193.0.0.194 255.255.255.192
+no shutdown
+exit
+
+interface serial0/1/0
+ip address 193.0.0.25 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+
+ip route 193.0.0.64 255.255.255.192 193.0.0.26
+```
+
+---
+
+## Router1
+```bash
+enable
+configure terminal
+
+interface serial0/1/0
+ip address 193.0.0.26 255.255.255.252
+no shutdown
+exit
+
+interface fastethernet0/0
+ip address 193.0.0.65 255.255.255.192
+no shutdown
+exit
+
+ip route 193.0.0.128 255.255.255.192 193.0.0.25
+ip route 193.0.0.192 255.255.255.192 193.0.0.25
+```
+
+---
+
 # Test Router
 ```bash
 show ip interface brief
